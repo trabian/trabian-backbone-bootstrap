@@ -11,7 +11,7 @@ module.exports =
 
     package = stitch.createPackage
 
-      paths: options.source
+      paths: options.paths
 
       compilers:
 
@@ -39,16 +39,18 @@ module.exports =
 
         for source in options.vendorDependencies
 
-          name = path.basename source
+          do (source) ->
 
-          destination = [options.output.vendor, name].join '/'
+            name = path.basename source
 
-          inputStream = fs.createReadStream source
-          outputStream = fs.createWriteStream destination
+            destination = [options.output.vendor, name].join '/'
 
-          util.pump inputStream, outputStream, (err) ->
-            throw err if err
-            console.log "copied #{source} to #{destination}"
+            inputStream = fs.createReadStream source
+            outputStream = fs.createWriteStream destination
+
+            util.pump inputStream, outputStream, (err) ->
+              throw err if err
+              console.log "copied #{source} to #{destination}"
 
     all = ->
       stitch()
