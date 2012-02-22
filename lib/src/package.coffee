@@ -11,7 +11,7 @@ module.exports =
 
     package = stitch.createPackage
 
-      paths: options.paths
+      paths: options.source
 
       compilers:
 
