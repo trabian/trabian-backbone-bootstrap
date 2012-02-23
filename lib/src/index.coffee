@@ -1,3 +1,3 @@
 module.exports =
 
-  package: require './package'
+  build: require './build'
