@@ -73,9 +73,9 @@ module.exports =
 
     for name in moduleNames
 
-      modulePath = "#{root}/node_modules/#{name}"
+      modulePath = "node_modules/#{name}"
 
-      package = require "#{modulePath}/package"
+      package = require "#{root}/#{modulePath}/package"
 
       if trabianPackage = package.trabianPackage
 
@@ -83,5 +83,7 @@ module.exports =
           if array = trabianPackage[field]
             for item in array
               jointOptions[field].push [modulePath, item].join '/'
+
+    console.log 'joint options', jointOptions
 
     jointOptions

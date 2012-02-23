@@ -19,7 +19,7 @@
     "dependencies": [
       "node_modules/underscore/underscore.js",
       "node_modules/backbone/backbone.js",
-      "node_modules/trabian-backbone-bootstrap/lib/js/backbone-extensions.js"
+      "lib/js/backbone-extensions.js"
     ],
     "vendorDependencies": [
       "node_modules/jquery-browser/lib/jquery.js"
