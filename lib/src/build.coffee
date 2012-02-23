@@ -84,6 +84,4 @@ module.exports =
             for item in array
               jointOptions[field].push [modulePath, item].join '/'
 
-    console.log 'joint options', jointOptions
-
     jointOptions
