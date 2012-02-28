@@ -5,7 +5,7 @@ module.exports = class Modal extends Backbone.View
   className: 'modal'
 
   events:
-    'click a.close': 'hide'
+    'click a.close-modal': 'hide'
 
   initialize: ->
     @$el.modal()
@@ -17,16 +17,20 @@ module.exports = class Modal extends Backbone.View
 
     @$el.html template locals
 
+    @renderHeader @$('.heading')
     @renderContent @$('.modal-body')
     @renderFooter @$('.modal-footer')
 
     @
 
+  renderHeader: ($el) =>
+    # Do nothing
+
   renderContent: ($el) =>
     $el.html '[content]'
 
   renderFooter: ($el) =>
-    $el.append @make 'a', { class: 'btn close' }, 'Close'
+    $el.append @make 'a', { class: 'btn close close-modal' }, 'Close'
 
   open: =>
     @$el.modal 'show'
