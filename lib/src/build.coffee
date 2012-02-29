@@ -4,6 +4,15 @@ fs = require 'fs'
 util = require 'util'
 path = require 'path'
 _ = require 'underscore'
+md = require('node-markdown').Markdown
+
+Lexer = require('coffee-script/lib/coffee-script/lexer').Lexer
+
+lexer = new Lexer()
+
+handleQuotes = (string) ->
+  # Might as well use CoffeeScript's lexer to handle the quotes in the html
+  lexer.makeString string, "'", true
 
 module.exports =
 
@@ -20,6 +29,11 @@ module.exports =
         jade: (module, filename) ->
           source = fs.readFileSync(filename, 'utf8')
           source = "module.exports = " + jade.compile(source, compileDebug: false, client: true) + ";"
+          module._compile(source, filename)
+
+        md: (module, filename) ->
+          source = fs.readFileSync(filename, 'utf8')
+          source = "module.exports = #{handleQuotes md source};"
           module._compile(source, filename)
 
       dependencies: dependencies
