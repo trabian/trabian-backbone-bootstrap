@@ -6,9 +6,8 @@ module.exports = class NavigationView extends Backbone.View
 
   render: =>
 
-    locals =
+    @$el.append template
       title: @options.title
-
-    @$el.append template locals
+      links: @options.links
 
     @

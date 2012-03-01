@@ -1,3 +1,13 @@
 .navbar-inner
   .container
     a.brand(href='#') #{title}
+    - if (links)
+      a.btn.btn-navbar("data-toggle"='collapse', "data-target"='.nav-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      .nav-collapse
+        ul.nav
+          - for link in links
+            li
+              a(href=link.path)= link.title
