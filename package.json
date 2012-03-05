@@ -1,6 +1,6 @@
 {
   "name": "trabian-backbone-bootstrap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Shared views and styles using Backbone and Twitter Bootstrap",
   "private": true,
   "main": "./lib/js/index.js",
