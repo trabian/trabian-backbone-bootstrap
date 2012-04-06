@@ -1,0 +1,13 @@
+@mixin span($width)
+  float: left
+  margin-left: 20px
+  @media (min-width: 768px) and (max-width: 979px)
+    margin-left: 20px
+  @media (min-width: 1200px)
+    margin-left: 30px
+  @media (max-width: 767px)
+    float: none
+    display: block
+    width: auto
+    margin: 0
+  @extend .span#{$width}
