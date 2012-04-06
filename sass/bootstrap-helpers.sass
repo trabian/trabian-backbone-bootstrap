@@ -1,4 +1,4 @@
-@mixin span($width)
+.spanX
   float: left
   margin-left: 20px
   @media (min-width: 768px) and (max-width: 979px)
@@ -10,4 +10,7 @@
     display: block
     width: auto
     margin: 0
-  @extend .span#{$width}
+
+@for $i from 1 through 12
+  .span#{$i}
+    @extend .spanX
