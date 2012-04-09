@@ -22,3 +22,4 @@ _.extend Backbone.View::,
 
   leave: ->
     @unbindFromAll()
+    @undelegateEvents()
