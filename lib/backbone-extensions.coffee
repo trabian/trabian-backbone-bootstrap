@@ -25,3 +25,17 @@ _.extend Backbone.View::,
     @unbindFromAll()
     @undelegateEvents()
     Backbone.ModelBinding.unbind @
+
+_.extend Backbone.Model::,
+
+  format: (formatters) ->
+
+    for name, formatter of formatters
+
+      do (name, formatter) =>
+
+        format = => @set "#{name}_formatted", formatter(@get name)
+
+        @on "change:#{name}", format
+
+        format()
