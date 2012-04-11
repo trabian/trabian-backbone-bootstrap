@@ -1,6 +1,6 @@
 {
   "name": "trabian-backbone-bootstrap",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Shared views and styles using Backbone and Twitter Bootstrap",
   "private": true,
   "main": "./lib/index.coffee",
@@ -20,7 +20,8 @@
     "dependencies": [
       "underscore:underscore.js",
       "backbone:backbone.js",
-      "lib/backbone-extensions.coffee"
+      "lib/backbone-extensions.coffee",
+      "vendor/backbone.modelbinding.js"
     ],
     "vendorDependencies": [
       "jquery-browser:lib/jquery.js",

@@ -21,5 +21,7 @@ _.extend Backbone.View::,
         binding.source.unbind binding.event, binding.callback
 
   leave: ->
+    @remove()
     @unbindFromAll()
     @undelegateEvents()
+    Backbone.ModelBinding.unbind @
