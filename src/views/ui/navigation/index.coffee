@@ -9,5 +9,6 @@ module.exports = class NavigationView extends Backbone.View
     @$el.append template
       title: @options.title
       links: @options.links
+      homePath: @options.homePath or '/'
 
     @
