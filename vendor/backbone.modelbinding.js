@@ -178,34 +178,42 @@ var modelbinding = (function(Backbone, _, $) {
 
       view.$(selector).each(function(index){
         var element = view.$(this);
-        var elementType = _getElementType(element);
-        var attribute_name = config.getBindingValue(element, elementType);
 
-        var modelChange = function(changed_model, val){ element.val(val); };
+        if (! element.attr('data-bound')) {
 
-        var setModelValue = function(attr_name, value){
-          var data = {};
-          data[attr_name] = value;
-          model.set(data);
-        };
+          var elementType = _getElementType(element);
+          var attribute_name = config.getBindingValue(element, elementType);
 
-        var elementChange = function(ev){
-          setModelValue(attribute_name, view.$(ev.target).val());
-        };
+          var modelChange = function(changed_model, val){ element.val(val); };
 
-        modelBinder.registerModelBinding(model, attribute_name, modelChange);
-        modelBinder.registerElementBinding(element, elementChange);
+          var setModelValue = function(attr_name, value){
+            var data = {};
+            data[attr_name] = value;
+            model.set(data);
+          };
 
-        // set the default value on the form, from the model
-        var attr_value = model.get(attribute_name);
-        if (typeof attr_value !== "undefined" && attr_value !== null) {
-          element.val(attr_value);
-        } else {
-          var elVal = element.val();
-          if (elVal){
-            setModelValue(attribute_name, elVal);
+          var elementChange = function(ev){
+            setModelValue(attribute_name, view.$(ev.target).val());
+          };
+
+          modelBinder.registerModelBinding(model, attribute_name, modelChange);
+          modelBinder.registerElementBinding(element, elementChange);
+
+          // set the default value on the form, from the model
+          var attr_value = model.get(attribute_name);
+          if (typeof attr_value !== "undefined" && attr_value !== null) {
+            element.val(attr_value);
+          } else {
+            var elVal = element.val();
+            if (elVal){
+              setModelValue(attribute_name, elVal);
+            }
           }
+
+          element.attr('data-bound', true);
+
         }
+
       });
     };
 
@@ -222,40 +230,49 @@ var modelbinding = (function(Backbone, _, $) {
       var modelBinder = this;
 
       view.$(selector).each(function(index){
+
         var element = view.$(this);
-        var attribute_name = config.getBindingValue(element, 'select');
 
-        var modelChange = function(changed_model, val){ element.val(val); };
+        if (! element.attr('data-bound')) {
 
-        var setModelValue = function(attr, val, text){
-          var data = {};
-          data[attr] = val;
-          data[attr + "_text"] = text;
-          model.set(data);
-        };
+          var attribute_name = config.getBindingValue(element, 'select');
 
-        var elementChange = function(ev){
-          var targetEl = view.$(ev.target);
-          var value = targetEl.val();
-          var text = targetEl.find(":selected").text();
-          setModelValue(attribute_name, value, text);
-        };
+          var modelChange = function(changed_model, val){ element.val(val); };
 
-        modelBinder.registerModelBinding(model, attribute_name, modelChange);
-        modelBinder.registerElementBinding(element, elementChange);
+          var setModelValue = function(attr, val, text){
+            var data = {};
+            data[attr] = val;
+            data[attr + "_text"] = text;
+            model.set(data);
+          };
 
-        // set the default value on the form, from the model
-        var attr_value = model.get(attribute_name);
-        if (typeof attr_value !== "undefined" && attr_value !== null) {
-          element.val(attr_value);
-        } 
+          var elementChange = function(ev){
+            var targetEl = view.$(ev.target);
+            var value = targetEl.val();
+            var text = targetEl.find(":selected").text();
+            setModelValue(attribute_name, value, text);
+          };
 
-        // set the model to the form's value if there is no model value
-        if (element.val() != attr_value) {
-          var value = element.val();
-          var text = element.find(":selected").text();
-          setModelValue(attribute_name, value, text);
+          modelBinder.registerModelBinding(model, attribute_name, modelChange);
+          modelBinder.registerElementBinding(element, elementChange);
+
+          // set the default value on the form, from the model
+          var attr_value = model.get(attribute_name);
+          if (typeof attr_value !== "undefined" && attr_value !== null) {
+            element.val(attr_value);
+          } 
+
+          // set the model to the form's value if there is no model value
+          if (element.val() != attr_value) {
+            var value = element.val();
+            var text = element.find(":selected").text();
+            setModelValue(attribute_name, value, text);
+          }
+
+          element.attr('data-bound', true);
+
         }
+
       });
     };
 
@@ -275,48 +292,54 @@ var modelbinding = (function(Backbone, _, $) {
       view.$(selector).each(function(index){
         var element = view.$(this);
 
-        var group_name = config.getBindingValue(element, 'radio');
-        if (!foundElements[group_name]) {
-          foundElements[group_name] = true;
-          var bindingAttr = config.getBindingAttr('radio');
+        if (! element.attr('data-bound')) {
 
-          var modelChange = function(model, val){
-            var value_selector = "input[type=radio][" + bindingAttr + "='" + group_name + "'][value='" + val + "']";
-            view.$(value_selector).attr("checked", "checked");
-          };
-          modelBinder.registerModelBinding(model, group_name, modelChange);
+          var group_name = config.getBindingValue(element, 'radio');
+          if (!foundElements[group_name]) {
+            foundElements[group_name] = true;
+            var bindingAttr = config.getBindingAttr('radio');
 
-          var setModelValue = function(attr, val){
-            var data = {};
-            data[attr] = val;
-            model.set(data);
-          };
+            var modelChange = function(model, val){
+              var value_selector = "input[type=radio][" + bindingAttr + "='" + group_name + "'][value='" + val + "']";
+              view.$(value_selector).attr("checked", "checked");
+            };
+            modelBinder.registerModelBinding(model, group_name, modelChange);
 
-          // bind the form changes to the model
-          var elementChange = function(ev){
-            var element = view.$(ev.currentTarget);
-            if (element.is(":checked")){
-              setModelValue(group_name, element.val());
+            var setModelValue = function(attr, val){
+              var data = {};
+              data[attr] = val;
+              model.set(data);
+            };
+
+            // bind the form changes to the model
+            var elementChange = function(ev){
+              var element = view.$(ev.currentTarget);
+              if (element.is(":checked")){
+                setModelValue(group_name, element.val());
+              }
+            };
+
+            var group_selector = "input[type=radio][" + bindingAttr + "='" + group_name + "']";
+            view.$(group_selector).each(function(){
+              var groupEl = $(this);
+              modelBinder.registerElementBinding(groupEl, elementChange);
+            });
+
+            var attr_value = model.get(group_name);
+            if (typeof attr_value !== "undefined" && attr_value !== null) {
+              // set the default value on the form, from the model
+              var value_selector = "input[type=radio][" + bindingAttr + "='" + group_name + "'][value='" + attr_value + "']";
+              view.$(value_selector).attr("checked", "checked");
+            } else {
+              // set the model to the currently selected radio button
+              var value_selector = "input[type=radio][" + bindingAttr + "='" + group_name + "']:checked";
+              var value = view.$(value_selector).val();
+              setModelValue(group_name, value);
             }
-          };
-
-          var group_selector = "input[type=radio][" + bindingAttr + "='" + group_name + "']";
-          view.$(group_selector).each(function(){
-            var groupEl = $(this);
-            modelBinder.registerElementBinding(groupEl, elementChange);
-          });
-
-          var attr_value = model.get(group_name);
-          if (typeof attr_value !== "undefined" && attr_value !== null) {
-            // set the default value on the form, from the model
-            var value_selector = "input[type=radio][" + bindingAttr + "='" + group_name + "'][value='" + attr_value + "']";
-            view.$(value_selector).attr("checked", "checked");
-          } else {
-            // set the model to the currently selected radio button
-            var value_selector = "input[type=radio][" + bindingAttr + "='" + group_name + "']:checked";
-            var value = view.$(value_selector).val();
-            setModelValue(group_name, value);
           }
+
+          element.attr('data-bound', true);
+
         }
       });
     };
@@ -335,47 +358,54 @@ var modelbinding = (function(Backbone, _, $) {
 
       view.$(selector).each(function(index){
         var element = view.$(this);
-        var bindingAttr = config.getBindingAttr('checkbox');
-        var attribute_name = config.getBindingValue(element, 'checkbox');
 
-        var modelChange = function(model, val){
-          if (val){
-            element.attr("checked", "checked");
+        if (! element.attr('data-bound')) {
+
+          var bindingAttr = config.getBindingAttr('checkbox');
+          var attribute_name = config.getBindingValue(element, 'checkbox');
+
+          var modelChange = function(model, val){
+            if (val){
+              element.attr("checked", "checked");
+            }
+            else{
+              element.removeAttr("checked");
+            }
+          };
+
+          var setModelValue = function(attr_name, value){
+            var data = {};
+            data[attr_name] = value;
+            model.set(data);
+          };
+
+          var elementChange = function(ev){
+            var changedElement = view.$(ev.target);
+            var checked = changedElement.is(":checked")? true : false;
+            setModelValue(attribute_name, checked);
+          };
+
+          modelBinder.registerModelBinding(model, attribute_name, modelChange);
+          modelBinder.registerElementBinding(element, elementChange);
+
+          var attr_exists = model.attributes.hasOwnProperty(attribute_name);
+          if (attr_exists) {
+            // set the default value on the form, from the model
+            var attr_value = model.get(attribute_name);
+            if (typeof attr_value !== "undefined" && attr_value !== null && attr_value != false) {
+              element.attr("checked", "checked");
+            }
+            else{
+              element.removeAttr("checked");
+            }
+          } else {
+            // bind the form's value to the model
+            var checked = element.is(":checked")? true : false;
+            setModelValue(attribute_name, checked);
           }
-          else{
-            element.removeAttr("checked");
-          }
-        };
 
-        var setModelValue = function(attr_name, value){
-          var data = {};
-          data[attr_name] = value;
-          model.set(data);
-        };
+          element.attr('data-bound', true);
 
-        var elementChange = function(ev){
-          var changedElement = view.$(ev.target);
-          var checked = changedElement.is(":checked")? true : false;
-          setModelValue(attribute_name, checked);
-        };
-
-        modelBinder.registerModelBinding(model, attribute_name, modelChange);
-        modelBinder.registerElementBinding(element, elementChange);
-
-        var attr_exists = model.attributes.hasOwnProperty(attribute_name);
-        if (attr_exists) {
-          // set the default value on the form, from the model
-          var attr_value = model.get(attribute_name);
-          if (typeof attr_value !== "undefined" && attr_value !== null && attr_value != false) {
-            element.attr("checked", "checked");
-          }
-          else{
-            element.removeAttr("checked");
-          }
-        } else {
-          // bind the form's value to the model
-          var checked = element.is(":checked")? true : false;
-          setModelValue(attribute_name, checked);
         }
       });
     };
@@ -490,14 +520,20 @@ var modelbinding = (function(Backbone, _, $) {
 
       view.$(selector).each(function(index){
         var element = view.$(this);
-        var databindList = splitBindingAttr(element);
+        if (! element.attr('data-bound')) {
 
-        _.each(databindList, function(databind){
-          var eventConfig = getEventConfiguration(element, databind);
-          modelBinder.registerDataBinding(model, eventConfig.name, eventConfig.callback);
-          // set default on data-bind element
-          setOnElement(element, databind.elementAttr, model.get(databind.modelAttr));
-        });
+          var databindList = splitBindingAttr(element);
+
+          _.each(databindList, function(databind){
+            var eventConfig = getEventConfiguration(element, databind);
+            modelBinder.registerDataBinding(model, eventConfig.name, eventConfig.callback);
+            // set default on data-bind element
+            setOnElement(element, databind.elementAttr, model.get(databind.modelAttr));
+          });
+
+          element.attr('data-bound', true);
+
+        }
 
       });
     };
