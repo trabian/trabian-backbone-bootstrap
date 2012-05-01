@@ -24,9 +24,23 @@ _.extend Backbone.View::,
     @remove()
     @unbindFromAll()
     @undelegateEvents()
+    @leaveChildren?()
     Backbone.ModelBinding.unbind @
 
+  flash: ($el) ->
+
+    if window.flash
+
+      @$el.append @make 'p', { class: 'flash' }, window.flash
+      window.flash = null
+
 _.extend Backbone.Model::,
+
+  bindAndTrigger: (event, callback) ->
+
+    @on event, callback
+
+    callback()
 
   format: (formatters) ->
 
@@ -34,8 +48,33 @@ _.extend Backbone.Model::,
 
       do (name, formatter) =>
 
-        format = => @set "#{name}_formatted", formatter(@get name)
+        format = =>
+
+          formatted = if val = @get name
+            formatter val
+          else
+            ''
+
+          @set "#{name}_formatted", formatted
 
         @on "change:#{name}", format
 
         format()
+
+  createAndBind: (models) ->
+
+    for name, model of models
+
+      do (name, model) =>
+
+        @[name] = model
+
+        @set name, model.attributes
+
+        model.on 'change', =>
+          @set name, model.attributes
+
+Backbone.Validation.configure
+  forceUpdate: true
+
+_.extend Backbone.Model::, Backbone.Validation.mixin
