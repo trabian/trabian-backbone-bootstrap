@@ -1,12 +1,14 @@
+$fontImagePath: '/images/font' !default;
+
 @font-face {
   font-family: 'FontAwesome';
-  src: url('/images/font/fontawesome-webfont.eot');
-  src: url('/images/font/fontawesome-webfont.eot?#iefix')
+  src: url('#{$fontImagePath}/fontawesome-webfont.eot');
+  src: url('#{$fontImagePath}/fontawesome-webfont.eot?#iefix')
   format('embedded-opentype'),
-  url('/images/font/fontawesome-webfont.woff') format('woff'),
-  url('/images/font/fontawesome-webfont.ttf') format('truetype'),
-  url('/font/fontawesome-webfont.svgz#FontAwesomeRegular')
-  format('svg'), url('/images/font/fontawesome-webfont.svg#FontAwesomeRegular') format('svg');
+  url('#{$fontImagePath}/fontawesome-webfont.woff') format('woff'),
+  url('#{$fontImagePath}/fontawesome-webfont.ttf') format('truetype'),
+  url('#{$fontImagePath}/fontawesome-webfont.svgz#FontAwesomeRegular')
+  format('svg'), url('#{fontImagePath}/fontawesome-webfont.svg#FontAwesomeRegular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
