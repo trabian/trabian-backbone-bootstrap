@@ -14,6 +14,10 @@ _.extend Backbone.View::,
     source.on event, callback, @
     @bindings.push { source, event, callback }
 
+  bindToAndTrigger: (source, event, callback) ->
+    @bindTo source, event, callback
+    callback()
+
   unbindFromAll: ->
 
     if @bindings?
