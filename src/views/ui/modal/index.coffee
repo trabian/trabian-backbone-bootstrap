@@ -4,8 +4,9 @@ module.exports = class Modal extends Backbone.View
 
   className: 'modal'
 
-  events:
-    'click a.close-modal': 'hide'
+  events: (others = {}) ->
+    _.extend {}, others,
+      'click a.close-modal': 'hide'
 
   initialize: ->
     @$el.modal()
