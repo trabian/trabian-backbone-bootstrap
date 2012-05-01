@@ -4,7 +4,7 @@ module.exports =
 
     express = require 'express'
 
-    app = express.createServer()
+    app = express.createServer config.https or {}
 
     app.configure ->
 
