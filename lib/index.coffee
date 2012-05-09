@@ -1,8 +1,8 @@
 module.exports =
 
-  load: (root, package) ->
+  load: (root, pkg) ->
 
-    buildTasks = require('stitch-up').load(root, package).tasks
+    buildTasks = require('stitch-up').load(root, pkg).tasks
 
     tasks:
       build: -> buildTasks.all()
