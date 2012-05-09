@@ -55,7 +55,7 @@ _.extend Backbone.Model::,
         format = =>
 
           formatted = if val = @get name
-            formatter val
+            formatter val, @
           else
             ''
 
