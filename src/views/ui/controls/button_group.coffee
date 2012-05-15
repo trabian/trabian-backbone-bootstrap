@@ -18,7 +18,9 @@ module.exports = class ButtonGroup extends Backbone.View
 
   renderButton: (button) =>
 
-    $buttonEl = $(@make 'a', { class: 'btn' }, button.name)
+    label = button.name ? button.label
+
+    $buttonEl = $(@make 'a', { class: 'btn' }, label)
 
     if button.value is @options.value
       $buttonEl.button 'toggle'
