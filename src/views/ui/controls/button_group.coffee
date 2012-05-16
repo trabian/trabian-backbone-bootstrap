@@ -22,12 +22,20 @@ module.exports = class ButtonGroup extends Backbone.View
 
     $buttonEl = $(@make 'a', { class: 'btn' }, label)
 
-    if button.value is @options.value
-      $buttonEl.button 'toggle'
+    if @options.field
+      @bindToAndTrigger @model, "change:#{@options.field}", =>
+        console.log 'change status'
+        $buttonEl.toggleClass 'active', @model.get(@options.field) is button.value
+    else
+      if button.value is @options.value
+        $buttonEl.button 'toggle'
 
     $buttonEl.click (e) =>
 
       e.preventDefault()
+
+      if @options.field
+        @model.set @options.field, button.value
 
       @options.select? button.value
 
