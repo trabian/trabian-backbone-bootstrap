@@ -1,6 +1,6 @@
 {
   "name": "trabian-backbone-bootstrap",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Shared views and styles using Backbone and Twitter Bootstrap",
   "publishConfig": {
     "registry": "http://npm.trabian.iriscouch.com"

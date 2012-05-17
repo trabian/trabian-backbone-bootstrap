@@ -27,7 +27,7 @@ module.exports =
 
       app.set 'view options', config.view.options
 
-      app.use express.bodyParser()
+      #app.use express.bodyParser()
 
     app.get '/favicon.ico', (req, res, next) ->
       res.send 404
