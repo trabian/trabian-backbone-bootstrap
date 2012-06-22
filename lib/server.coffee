@@ -17,11 +17,20 @@ module.exports =
 
       app.use express.methodOverride()
 
+      if staticMatch = config.view?.static?.match
+
+        app.use (req, res, next) ->
+
+          if match = req.url.match staticMatch
+            req.url = match[1]
+
+          next()
+
       app.use express.cookieParser "this cookie secret isn't too secure"
 
       app.use express.logger()
 
-      app.use express.static config.view.static
+      app.use express.static config.view.static.dir
 
       app.set 'view engine', 'jade'
 
