@@ -72,7 +72,7 @@ var modelbinding = (function(Backbone, _, $) {
 
     this.registerElementBinding = function(element, callback){
       // bind the form changes to the model
-      element.bind("change", callback);
+      element.bind("change keyup", callback);
       this.elementBindings.push({element: element, eventName: "change", callback: callback});
     };
   };
