@@ -78,6 +78,19 @@ _.extend Backbone.Model::,
         model.on 'change', =>
           @set name, model.attributes
 
+  validateRelated: (related...) ->
+
+    for field in related
+
+      do (field) =>
+
+        @bindAndTrigger "change:#{field}", =>
+
+          if model = @get field
+
+            model.on 'validated', =>
+              @set "#{field}_valid", model.isValid()
+
 Backbone.Validation.configure
   forceUpdate: true
 

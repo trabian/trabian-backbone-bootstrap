@@ -1,6 +1,6 @@
 {
   "name": "trabian-backbone-bootstrap",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "Shared views and styles using Backbone and Twitter Bootstrap",
   "publishConfig": {
     "registry": "http://npm.trabian.iriscouch.com"
@@ -25,6 +25,7 @@
       "underscore:underscore.js",
       "backbone:backbone.js",
       "vendor/backbone.modelbinding.js",
+      "vendor/backbone.ModelBinder.js",
       "vendor/backbone.validation.js",
       "lib/backbone-extensions.coffee",
       "vendor/backbone.localStorage.js",
