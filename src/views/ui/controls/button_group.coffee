@@ -1,25 +1,26 @@
 module.exports = class ButtonGroup extends Backbone.View
 
-  className: 'btn-group'
-
-  events:
-    'change select': 'changeSelect'
-
   attributes:
     'data-toggle': 'buttons-radio'
 
   initialize: ->
 
+    @options.group ?= true
+
+    if @options.group
+      @$el.addClass 'btn-group'
+
     @$el.button()
 
   render: =>
 
-    if @options.select
+    if @options.dropdown
 
-      @$el.html $select = $('<select></select>')
+      # Setting id to field name allows model binding
+      @$el.html $dropdown = $("<select id='#{@options.field}'></select>")
 
       for button in @options.items
-        $select.append @renderOption button
+        $dropdown.append @renderOption button
 
     else
 
@@ -44,7 +45,11 @@ module.exports = class ButtonGroup extends Backbone.View
 
     $buttonEl.click (e) =>
       e.preventDefault()
-      @setValue value
+
+      if @options.field
+        @model.set @options.field, value
+
+      @options.select? value
 
     $buttonEl
 
@@ -56,13 +61,3 @@ module.exports = class ButtonGroup extends Backbone.View
     $optionEl = $(@make 'option', { value }, label)
 
     $optionEl
-
-  setValue: (value) =>
-
-    if @options.field
-      @model.set @options.field, value
-
-    @options.select? value
-
-  changeSelect: (e) =>
-    @setValue $(e.target).val()
