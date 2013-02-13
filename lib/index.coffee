@@ -6,5 +6,6 @@ module.exports =
 
     tasks:
       build: -> buildTasks.all()
+      buildTest: -> buildTasks.test()
 
   server: require './server'
