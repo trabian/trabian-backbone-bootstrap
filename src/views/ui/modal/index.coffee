@@ -31,7 +31,7 @@ module.exports = class Modal extends Backbone.View
     $el.html '[content]'
 
   renderFooter: ($el) =>
-    $el.append @make 'a', { class: 'btn close close-modal' }, 'Close'
+    $el.append '<a class="btn close close-modal">Close</a>'
 
   open: =>
     @$el.modal 'show'

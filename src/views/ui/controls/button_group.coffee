@@ -34,7 +34,7 @@ module.exports = class ButtonGroup extends Backbone.View
     label = button.name ? button.label
     value = button.key ? button.label
 
-    $buttonEl = $(@make 'a', { class: 'btn' }, label)
+    $buttonEl = $("<a class='btn'>#{label}</a>")
 
     if @options.field
       @bindToAndTrigger @model, "change:#{@options.field}", =>
@@ -58,6 +58,6 @@ module.exports = class ButtonGroup extends Backbone.View
     label = button.name ? button.label
     value = button.key ? button.label
 
-    $optionEl = $(@make 'option', { value }, label)
+    $optionEl = $("<option value='#{value}'>#{label}</option>")
 
     $optionEl

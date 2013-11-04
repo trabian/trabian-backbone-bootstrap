@@ -35,7 +35,7 @@ _.extend Backbone.View::,
 
     if window.flash
 
-      @$el.append @make 'p', { class: 'flash' }, window.flash
+      @$el.append "<p class='flash'>#{window.flash}</p>"
       window.flash = null
 
 _.extend Backbone.Model::,
