@@ -8,6 +8,7 @@
   "main": "./lib/index.coffee",
   "dependencies": {
     "backbone": "1.0.0",
+    "backbone-relational": "0.8.5",
     "coffee-script": "1.2.x",
     "express": "2.5.x",
     "jade": "0.20.x",
@@ -29,7 +30,7 @@
       "vendor/backbone.validation.js",
       "lib/backbone-extensions.coffee",
       "vendor/backbone.localStorage.js",
-      "vendor/backbone-relational.js"
+      "backbone-relational:backbone-relational.js"
     ],
     "vendorDependencies": [
       "jquery-browser:lib/jquery.js",
