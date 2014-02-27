@@ -76,7 +76,7 @@ _.extend Backbone.View::,
 
             if message = validationPresenter.get field
 
-              $group.addClass 'error'
+              $group.addClass 'has-error'
 
               $textContainer = $group.find('.controls,.error-text')
               $messageContainer = $textContainer.find '.help-block.error-message'
@@ -87,7 +87,7 @@ _.extend Backbone.View::,
               $messageContainer.text message
 
             else
-              $group.removeClass('error').find('.help-block.error-message').remove()
+              $group.removeClass('has-error').find('.help-block.error-message').remove()
 
 
     validationPresenter
