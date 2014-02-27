@@ -72,7 +72,7 @@ _.extend Backbone.View::,
 
           _.defer =>
 
-            $group = @$(selector).parents '.control-group,.error-container'
+            $group = @$(selector).closest '.control-group,.error-container'
 
             if message = validationPresenter.get field
 
