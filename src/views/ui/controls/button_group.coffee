@@ -10,6 +10,9 @@ module.exports = class ButtonGroup extends Backbone.View
     if @options.group
       @$el.addClass 'btn-group'
 
+    @$el.attr
+      name: @options.field
+
     @$el.button()
 
   render: =>

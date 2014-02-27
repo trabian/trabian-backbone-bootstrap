@@ -154,19 +154,21 @@ Backbone.Validation = (function(Backbone, _, undefined) {
                 var model = this,
                     opt = _.extend({}, options, setOptions);
                 if(!attrs){
-                    return model.validate.call(model, _.extend(getValidatedAttrs(model), model.toJSON()));
+                    return model.validate.call(model, _.extend(getValidatedAttrs(model), model.toJSON()), setOptions);
                 }
 
                 var result = validateObject(view, model, model.validation, attrs, opt);
                 model._isValid = result.isValid;
 
+                var invalidAttrs = _(result.invalidAttrs).object(result.errorMessages);
+
                 _.defer(function() {
-                    model.trigger('validated', model._isValid, model, result.invalidAttrs);
-                    model.trigger('validated:' + (model._isValid ? 'valid' : 'invalid'), model, result.invalidAttrs);
+                    model.trigger('validated', model._isValid, model, invalidAttrs);
+                    model.trigger('validated:' + (model._isValid ? 'valid' : 'invalid'), model, invalidAttrs);
                 });
 
                 if (!opt.forceUpdate && result.errorMessages.length > 0) {
-                    return result.errorMessages;
+                    return invalidAttrs;
                 }
             }
         };
