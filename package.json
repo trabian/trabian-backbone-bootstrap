@@ -23,7 +23,7 @@
     "dependencies": [
       "vendor/console.js",
       "underscore:underscore.js",
-      "backbone:backbone.js",
+      "node_modules/backbone/backbone.js",
       "vendor/backbone.modelbinding.js",
       "vendor/backbone.ModelBinder.js",
       "vendor/backbone.validation.js",
