@@ -113,7 +113,7 @@ _.extend Backbone.Model::,
           else
             ''
 
-          @set "#{name}_formatted", formatted, forceUpdate: false
+          @set "#{name}_formatted", formatted, forceUpdate: true
 
         @on "change:#{name}", format
 
