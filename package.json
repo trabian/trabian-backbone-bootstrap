@@ -12,7 +12,7 @@
     "express": "2.5.x",
     "jade": "0.20.x",
     "jquery-browser": "1.7.x",
-    "underscore": "1.4.x",
+    "underscore": "1.8.3",
     "stitch-up":"0.3.12"
   },
   "stitch": {
