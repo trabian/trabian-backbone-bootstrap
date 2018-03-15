@@ -13,7 +13,7 @@
     "jade": "0.20.x",
     "jquery-browser": "1.7.2-3",
     "underscore": "1.8.3",
-    "stitch-up": "0.3.12"
+    "stitch-up": "0.4.1"
   },
   "stitch": {
     "paths": ["src"],
