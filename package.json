@@ -8,12 +8,12 @@
   "main": "./lib/index.coffee",
   "dependencies": {
     "backbone": "0.9.2",
-    "coffee-script": "1.2.x",
+    "coffee-script": "1.12.7",
     "express": "2.5.x",
     "jade": "0.20.x",
     "jquery-browser": "1.7.2-3",
     "underscore": "1.8.3",
-    "stitch-up": "0.3.12"
+    "stitch-up": "0.4.1"
   },
   "stitch": {
     "paths": ["src"],
@@ -25,7 +25,7 @@
       "vendor/backbone.modelbinding.js",
       "vendor/backbone.ModelBinder.js",
       "vendor/backbone.validation.js",
-      "lib/backbone-extensions.coffee",
+      "lib/backbone-extensions.js",
       "vendor/backbone.localStorage.js",
       "vendor/backbone-relational.js"
     ],
