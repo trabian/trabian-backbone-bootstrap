@@ -25,7 +25,7 @@
       "vendor/backbone.modelbinding.js",
       "vendor/backbone.ModelBinder.js",
       "vendor/backbone.validation.js",
-      "lib/backbone-extensions.coffee",
+      "lib/backbone-extensions.js",
       "vendor/backbone.localStorage.js",
       "vendor/backbone-relational.js"
     ],
